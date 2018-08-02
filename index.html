@@ -1,31 +1,1458 @@
-ROTC Enlistment Monitoring
 
-<input type="text" id="search" placeholder="Type to search">
-<table id="table">
-   <tr>
-      <td>Apple</td>
-      <td>Green</td>
-   </tr>
-   <tr>
-      <td>Grapes</td>
-      <td>Green</td>
-   </tr>
-   <tr>
-      <td>Orange</td>
-      <td>Orange</td>
-   </tr>
-</table>
+<!DOCTYPE html>
 
-<script src="http://code.jquery.com/jquery-1.4.2.min.js">  
-</script>
-<script>
-var $rows = $('#table tr');
-$('#search').keyup(function() {
-    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-    
-    $rows.show().filter(function() {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        return !~text.indexOf(val);
-    }).hide();
-});
-</script>
+
+<html>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109224015-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-109224015-1');
+        </script>
+
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<title>UP CRS - Schedule of Classes</title>
+	<script type="text/javascript" src="https://crs.upd.edu.ph/javascripts/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="https://crs.upd.edu.ph/javascripts/jquery.tablesorter.js"></script>
+	<script type="text/javascript" src="https://crs.upd.edu.ph/javascripts/jquery.tablesorter.widgets.js"></script>
+
+
+	<link rel="stylesheet" href="https://crs.upd.edu.ph/stylesheets/layout.css" type="text/css" />
+	<link rel="stylesheet" href="https://crs.upd.edu.ph/stylesheets/status.css" type="text/css" />
+	<link rel="stylesheet" href="https://crs.upd.edu.ph/stylesheets/schedule.css" type="text/css" />
+	<link rel="stylesheet" href="https://crs.upd.edu.ph/stylesheets/tablesorter/tablesorter.css" type="text/css" />
+	<link rel="shortcut icon" href="https://crs.upd.edu.ph/images/favicon.ico" type="image/x-icon" />
+
+	<style type="text/css">
+		#tbl_schedule tbody:hover {
+			background-color: #F0F0AF;
+		}
+	</style>
+	
+	<script type="text/javascript" language="JavaScript">
+	$(document).ready(function() {
+		$('#btn_search').click(searchClasses);
+		$('#frm_schedule').submit(function(e) {
+			e.preventDefault();
+			searchClasses();
+		});
+
+//		// table sorter
+//		$.tablesorter.addParser({
+//			// set uniqueid
+//			id: 'availableslots',
+//			is: function(s) {
+//				// return false so that parser is not automatically detected
+//				return false;
+//			},
+//			format: function(s) {
+//				var temp = s.replace('<strong>','').replace('</strong>','').split('/');
+//				return temp[0];
+//			},
+//			// set type to numeric
+//			type: 'numeric'
+//		});
+
+//		$('#tbl_schedule').tablesorter({widgets:['zebra'], headers: {0:{sorter:false},2:{sorter:false},4:{sorter:'availableslots'},5:{sorter:false}}});
+
+	});
+
+	function searchClasses() {
+		var coursenumber = $.trim($('#txt_coursenumber').val());
+		var term = $.trim($('#txt_term').val());
+		var alphanumeric_pattern = /^[a-zA-Z0-9\.\s]+$/;
+
+		if(coursenumber != '') {
+			if( ! alphanumeric_pattern.test(coursenumber)) {
+				alert('Course number must be alphanumeric.');
+			} else {
+				window.location = 'https://crs.upd.edu.ph/schedule' + '/'+ term + '/'+ coursenumber ;
+			}
+		}
+
+	}
+
+	</script>
+
+<style>
+	#frm_schedule {
+		margin: auto;
+		width: 25%;
+		background: #FCFCF0;
+		border: 3px solid #444444;
+		padding: 1em;
+	}
+	#frm_schedule strong, #search input {
+		padding-right: 1em;
+	}
+</style>
+</head>
+
+<body class="schedule">
+
+<div id="header">
+	<a href="https://crs.upd.edu.ph/user" class="header_link"></a>
+</div>
+<div id="subheader">
+</div>
+
+<div id="content" class="align-center">
+
+<h1>
+	Schedule of Classes<br />
+		<select id="txt_term" name="txt_term" style="padding: 2px; border: 1px solid #CECECE; border-radius: 5px; font-size: 100%; text-align: right;" onchange="searchClasses();">
+					<option value="120172" >Second Semester AY 2017-2018</option>
+					<option value="120174" >Midyear Term 2018</option>
+					<option value="120181" selected="selected">First Semester AY 2018-2019</option>
+					<option value="120182" >Second Semester AY 2018-2019</option>
+		</select>
+	</h1>
+
+<br />
+<form id="frm_schedule" action="" method="post">
+Course Number: 
+<input type="text" id="txt_coursenumber" name="txt_coursenumber" placeholder="(e.g., Math 11, Eng 1)"/>
+<br/> 
+<input type="button" id="btn_search" name="btn_search" value="Search" />
+</form>
+
+<br/>
+<p>
+	<a href="https://crs.upd.edu.ph/schedule/120181/A">A</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/B">B</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/C">C</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/D">D</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/E">E</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/F">F</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/G">G</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/H">H</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/I">I</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/J">J</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/K">K</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/L">L</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/M">M</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/N">N</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/O">O</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/P">P</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/Q">Q</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/R">R</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/S">S</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/T">T</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/U">U</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/V">V</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/W">W</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/X">X</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/Y">Y</a>&nbsp;
+	<a href="https://crs.upd.edu.ph/schedule/120181/Z">Z</a>&nbsp;
+<a href="https://crs.upd.edu.ph/">Back to main page</a>
+</p>
+<br />
+<div style="text-align: left; padding: 0; margin: 0;"><strong>Results for: <em>NSTP Common Module</em></strong></div>
+<table id="tbl_schedule" style="table-layout: fixed	">
+<thead>
+<tr>
+	<th width="5%">Class Code</th>
+	<th width="15%">Class</th>
+	<th width="5%">Credits</th>
+	<th width="30%">
+		Schedule<br />
+		Instructor(s)<br/>
+		Remarks
+	</th>
+	<th width="15%">Enlisting Unit : Block<br/><b>Block Remarks</b></th>
+	<th width="10%">
+		Available Slots /<br />
+		Total Slots
+	</th>
+	<th width="5%">Demand</th>
+	<th width="15%">Restrictions</th>
+</tr>
+</thead>
+
+	<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">37581</td>
+		<td rowspan = "1">NSTP Common Module A</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec IB 250<br />
+			TBA<br/>
+					</td>
+		 
+		<td>IB<br/><em></em></td>
+					<td>
+				<strong>5</strong> /
+				20			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">37583</td>
+		<td rowspan = "1">NSTP Common Module B</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec IB 345<br />
+			CONCEALED<br/>
+					</td>
+		 
+		<td>IB<br/><em></em></td>
+					<td>
+				<strong>6</strong> /
+				20			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">54116</td>
+		<td rowspan = "1">NSTP Common Module Engg CE MCDE1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec TBA(ICE)<br />
+			DIOLA, MA. BRIDA LEA<br/>
+					</td>
+		 
+		<td>ICE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				35			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">54118</td>
+		<td rowspan = "1">NSTP Common Module Engg CE MCDE2</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec TBA(ICE)<br />
+			CARAM, ROSABELLE LOUISE<br/>
+					</td>
+		 
+		<td>ICE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				35			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">53498</td>
+		<td rowspan = "1">NSTP Common Module Engg ChE SWX</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 1-4PM lec A103-104<br />
+			VILLANUEVA, CARMELITA; NALZARO, PAUL JAKE<br/>
+					</td>
+		 
+		<td>DChE<br/><em></em></td>
+					<td>
+				<strong>3</strong> /
+				35			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">56816</td>
+		<td rowspan = "1">NSTP Common Module Engg DMMME M1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec TBA(DMMM)<br />
+			CONCEALED<br/>
+					</td>
+		 
+		<td>DMMM<br/><em></em></td>
+					<td>
+				<strong>2</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">56818</td>
+		<td rowspan = "1">NSTP Common Module Engg DMMME M2</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec TBA(DMMM)<br />
+			CONCEALED<br/>
+					</td>
+		 
+		<td>DMMM<br/><em></em></td>
+					<td>
+				<strong>15</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">55110</td>
+		<td rowspan = "1">NSTP Common Module Engg GE MCDE</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec TBA(DGE)<br />
+			CONCEALED<br/>
+			<em style="font-weight: bold">Room: MH 112-114</em>		</td>
+		 
+		<td>DGE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				30			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">55677</td>
+		<td rowspan = "1">NSTP Common Module Engg IE MRUV</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec MH 417-419<br />
+			CONCEALED<br/>
+					</td>
+		 
+		<td>DIE/OR<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				36			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">56266</td>
+		<td rowspan = "1">NSTP Common Module Engg ME MCDE</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec TBA(DME)<br />
+			CONCEALED<br/>
+					</td>
+		 
+		<td>DME<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				30			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">20464</td>
+		<td rowspan = "1">NSTP Common Module FA MON</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 1-4PM lec TBA(VC)<br />
+			ROSALES, MABYN THERESA<br/>
+					</td>
+		 
+		<td>VC<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">20466</td>
+		<td rowspan = "1">NSTP Common Module FA MON -1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2:30-5:30PM lec TBA(VC)<br />
+			REYNOSO, JOHNNY<br/>
+					</td>
+		 
+		<td>VC<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">20468</td>
+		<td rowspan = "1">NSTP Common Module FA SAT</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 8:30-11:30AM lec TBA(VC)<br />
+			SILVESTRE, JOSE MELCHOR<br/>
+					</td>
+		 
+		<td>VC<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				28			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">24969</td>
+		<td rowspan = "1">NSTP Common Module MAB</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 7-10AM lec V ROOFTOP<br />
+			DIZER, RONUALDO<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">24971</td>
+		<td rowspan = "1">NSTP Common Module MAB-1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 7-10AM lec V ROOFTOP<br />
+			TBA<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">24977</td>
+		<td rowspan = "1">NSTP Common Module MBC1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-10:30AM lec TBA(DPE)<br />
+			LOGAN, IAN LAWRENCE<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				1			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">24979</td>
+		<td rowspan = "1">NSTP Common Module MBC1-1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 1-4PM lec V 207<br />
+			LOGAN, IAN LAWRENCE<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">41469</td>
+		<td rowspan = "1">NSTP Common Module MBCD</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8-11AM lec NIP F209<br />
+			TBA<br/>
+			<em style="font-weight: bold">To be dissolved</em>		</td>
+		 
+		<td>NIP<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				1			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">25004</td>
+		<td rowspan = "1">NSTP Common Module MBD</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8-11AM lec V 211<br />
+			BASUG, ARMANDO<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">25002</td>
+		<td rowspan = "1">NSTP Common Module MBD1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec V 207<br />
+			LOGAN, IAN LAWRENCE<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">25006</td>
+		<td rowspan = "1">NSTP Common Module MBD-1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8-11AM lec V 202<br />
+			BASUG, ARMANDO<br/>
+					</td>
+		 
+		<td><br/><em></em></td>
+					<td colspan="2"><strong>DISSOLVED</strong></td>
+		
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">41564</td>
+		<td rowspan = "1">NSTP Common Module MCDE</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec NIP F209<br />
+			TBA<br/>
+					</td>
+		 
+		<td>NIP<br/><em></em></td>
+					<td>
+				<strong>1</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">41566</td>
+		<td rowspan = "1">NSTP Common Module MCDE-1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec NIP F208<br />
+			TBA<br/>
+					</td>
+		 
+		<td>NIP<br/><em></em></td>
+					<td>
+				<strong>2</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">16647</td>
+		<td rowspan = "1">NSTP Common Module MCJ</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-3PM lec BA 104<br />
+			CONCEALED<br/>
+			<em style="font-weight: bold">For VSB</em>		</td>
+		 
+		<td>DBA<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				86			</td>
+												<td rowspan="1">0</td>
+														
+		<td>For: VSB(80 slots)</td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">65563</td>
+		<td rowspan = "1">NSTP Common Module MIJK2</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 1-4PM lec ILS 4<br />
+			SANTOS, YHNA THERESE<br/>
+					</td>
+		 
+		<td>SLIS<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				28			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">24973</td>
+		<td rowspan = "1">NSTP Common Module MIK</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 1-4PM lec V ROOFTOP<br />
+			TBA<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">24975</td>
+		<td rowspan = "1">NSTP Common Module MIK-1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 1-4PM lec TBA(DPE)<br />
+			TBA<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">47970</td>
+		<td rowspan = "1">NSTP Common Module MJKL</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2-5PM lec PH 304<br />
+			AZURIN, XYLENE ANGELIQUE<br/>
+					</td>
+		 
+		<td>DAnthro<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">42549</td>
+		<td rowspan = "1">NSTP Common Module MJKL3</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2-5PM lec PH 319<br />
+			OMBAO, ROLA<br/>
+					</td>
+		 
+		<td>Philo<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">42454</td>
+		<td rowspan = "1">NSTP Common Module MKLN1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2-5PM lec PH 222<br />
+			MARQUEZ, LEANDER<br/>
+					</td>
+		 
+		<td>Philo<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">42456</td>
+		<td rowspan = "1">NSTP Common Module MKLN2</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2-5PM lec PH 317<br />
+			ALVAREZ, CATHLYNE JOY<br/>
+					</td>
+		 
+		<td>Philo<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">40833</td>
+		<td rowspan = "1">NSTP Common Module MRU</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec NIGS 127<br />
+			IRAPTA, PAULA NAOMI<br/>
+					</td>
+		 
+		<td>NIGS<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				10			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">38725</td>
+		<td rowspan = "1">NSTP Common Module MRU1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec IC 307-308<br />
+			CONCEALED<br/>
+					</td>
+		 
+		<td>IC<br/><em></em></td>
+					<td>
+				<strong>6</strong> /
+				20			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">49091</td>
+		<td rowspan = "1">NSTP Common Module MRU 1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec TBA(CD)<br />
+			LAGOS, DEVRALIN<br/>
+			<em style="font-weight: bold">with Field Activities</em>		</td>
+		 
+		<td>CD<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">49093</td>
+		<td rowspan = "1">NSTP Common Module MRU 2</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec TBA(CD)<br />
+			TBA<br/>
+			<em style="font-weight: bold">with Field Activities</em>		</td>
+		 
+		<td>CD<br/><em></em></td>
+					<td>
+				<strong>14</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">40837</td>
+		<td rowspan = "1">NSTP Common Module MRU-2</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec NIGS 230<br />
+			NIGS, NIGS<br/>
+					</td>
+		 
+		<td>NIGS<br/><em></em></td>
+					<td>
+				<strong>1</strong> /
+				10			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">40835</td>
+		<td rowspan = "1">NSTP Common Module MRU-3</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec NIGS 128<br />
+			NIGS, NIGS<br/>
+					</td>
+		 
+		<td>NIGS<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				10			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">39734</td>
+		<td rowspan = "1">NSTP Common Module MRU-4</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec NIMBB 105<br />
+			CONCEALED<br/>
+					</td>
+		 
+		<td>MBBP<br/><em></em></td>
+					<td>
+				<strong>7</strong> /
+				20			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">28175</td>
+		<td rowspan = "1">NSTP Common Module MRV</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec PStar2<br />
+			RARA, MA. CRISTINA<br/>
+			<em style="font-weight: bold">Animal Management</em>		</td>
+		 
+		<td><br/><em></em></td>
+					<td colspan="2"><strong>DISSOLVED</strong></td>
+		
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">28179</td>
+		<td rowspan = "1">NSTP Common Module MRV-1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 9AM-12PM lec TBA(OCS)<br />
+			CLAUDIO, MA IVY<br/>
+					</td>
+		 
+		<td>OCS<br/><em></em></td>
+					<td>
+				<strong>20</strong> /
+				30			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">39400</td>
+		<td rowspan = "1">NSTP Common Module MRV-2</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 8:30-11:30AM lec TBA(MATH)<br />
+			CAALIM, JONATHAN<br/>
+					</td>
+		 
+		<td>MATH<br/><em></em></td>
+					<td>
+				<strong>3</strong> /
+				10			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">32023</td>
+		<td rowspan = "1">NSTP Common Module MuEd7</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 9AM-12PM lec TBA(DMuE)<br />
+			VALENCIANO, DECEMBER<br/>
+					</td>
+		 
+		<td>DMuE<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				26			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">44732</td>
+		<td rowspan = "1">NSTP Common Module MXY </td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2-5PM lec PH 224<br />
+			BAUTISTA, AIMEE DRESA<br/>
+					</td>
+		 
+		<td>PolSci<br/><em></em></td>
+					<td>
+				<strong>0</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">49095</td>
+		<td rowspan = "1">NSTP Common Module MXY 1</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2:30-5:30PM lec TBA(CD)<br />
+			TBA<br/>
+			<em style="font-weight: bold">with Field Activities</em>		</td>
+		 
+		<td>CD<br/><em></em></td>
+					<td>
+				<strong>9</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">49097</td>
+		<td rowspan = "1">NSTP Common Module MXY 2</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2:30-5:30PM lec TBA(CD)<br />
+			TBA<br/>
+			<em style="font-weight: bold">with Field Activities</em>		</td>
+		 
+		<td>CD<br/><em></em></td>
+					<td>
+				<strong>16</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">60112</td>
+		<td rowspan = "1">NSTP Common Module NCPAG MWX</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 1-4PM lec TBA(CPAGE)<br />
+			CALUGAY, ZITA CONCEPCION<br/>
+					</td>
+		 
+		<td>CPAGE<br/><em></em></td>
+					<td>
+				<strong>20</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">61708</td>
+		<td rowspan = "1">NSTP Common Module ROTC 1 - BAND</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 8AM-12PM lec TBA(DMST)<br />
+			BARONA, JOHN<br/>
+			<em style="font-weight: bold">Band Unit - is for UP Symphonic Band Members enroled in ROTC 1.  They render music for ROTC Ceremonial Parade and for official activities of the University.</em>		</td>
+		 
+		<td>DMST<br/><em></em></td>
+					<td>
+				<strong>1</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">61710</td>
+		<td rowspan = "1">NSTP Common Module ROTC 1 - HQ</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 8AM-12PM lec TBA(DMST)<br />
+			BARONA, JOHN<br/>
+			<em style="font-weight: bold">HQ - is Headquarter Service  support group in order to accomplish the mission of the ROTC Corps of Cadets. </em>		</td>
+		 
+		<td>DMST<br/><em></em></td>
+					<td>
+				<strong>23</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">61706</td>
+		<td rowspan = "1">NSTP Common Module ROTC 1 - INF</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 8AM-12PM lec TBA(DMST)<br />
+			BARONA, JOHN<br/>
+			<em style="font-weight: bold">Infantry - is for training in Marksmanship & Small Unit Tactics (SUT), for effective land based unit.</em>		</td>
+		 
+		<td>DMST<br/><em></em></td>
+					<td>
+				<strong>79</strong> /
+				100			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">61702</td>
+		<td rowspan = "1">NSTP Common Module ROTC 1 - RAYA</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 8AM-12PM lec TBA(DMST)<br />
+			BARONA, JOHN<br/>
+			<em style="font-weight: bold">Rayadillo - is for training in Drills & Cremonies. The Rayadillo Unit serves as the Honor Guard of the University.</em>		</td>
+		 
+		<td>DMST<br/><em></em></td>
+					<td>
+				<strong>21</strong> /
+				50			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">61704</td>
+		<td rowspan = "1">NSTP Common Module ROTC1- RESCUE</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 8AM-12PM lec TBA(DMST)<br />
+			BARONA, JOHN<br/>
+			<em style="font-weight: bold">Rescue - is for training in First Aid and Disaster Risk Reduction Management, to respond in cases of calamity and disaster.</em>		</td>
+		 
+		<td>DMST<br/><em></em></td>
+					<td>
+				<strong>45</strong> /
+				100			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">25013</td>
+		<td rowspan = "1">NSTP Common Module SBD</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			S 8-11AM lec V 202<br />
+			BASUG, ARMANDO<br/>
+					</td>
+		 
+		<td>DPE<br/><em></em></td>
+					<td>
+				<strong>21</strong> /
+				25			</td>
+												<td rowspan="1">0</td>
+														
+		<td></td>
+		</tr>
+					</tbody>
+		<tbody style="border-bottom: 1px solid gray">
+	<tr>
+		<td rowspan = "1">66696</td>
+		<td rowspan = "1">NSTP Common Module SE-MIJL</td>
+		<td rowspan = "1">0.0</td>
+		<td rowspan = "1">
+			M 2-5PM lec SE 114<br />
+			QUIMBO, VICTORIA<br/>
+					</td>
+		 
+		<td>SE<br/><em></em></td>
+					<td>
+				<strong>3</strong> /
+				40			</td>
+												<td rowspan="1">0</td>
+														
+		<td>For: SE</td>
+		</tr>
+					</tbody>
+	</table>
+
+</div><!-- #content -->
+
+﻿
+<script type="text/javascript">
+			
+		$(document).ready(function() {
+			
+			//set the width per footer_expander element
+			var expander_count = $('.footerlink').length;
+			var expander_width = (83/expander_count);
+			
+			var i = 0;
+			$.each($(".footerlink"), function(index, value){
+				$(this).css('width', expander_width+'%');
+				$(this).css('left', (((expander_width)*i)+10)+'%');
+				i++;
+			});
+			
+			$(".footerlink,.footer_expander").hover(
+				function(){
+					$(this).animate({ height: "30"}, 50);
+				},
+				function(){
+					$(this).animate({ height: "16"}, 50);
+				
+				}
+			);
+			
+			//set the width per footer_expander element
+			var division_count = $('.footer_division').length;
+			var division_width = (88/division_count);
+			division_width = division_width+'%';
+			
+			$.each($(".footer_division"), function(index, value){
+				$(this).css('width', division_width);
+			});
+			
+		function change_acadtermtype() {
+			return document.location = 'https://crs.upd.edu.ph/user/switch_acadtermtype/' + $(this).val();
+		}
+
+		function change_role() {
+			return document.location = 'https://crs.upd.edu.ph/user/switch_role/' + $(this).val();
+		}
+
+		function show_roles() {
+			$("#span_role").addClass("hidden");
+			$("#span_role-choices").removeClass("hidden");
+		}
+
+		function show_acadtermtypes() {
+			$("#span_acadtermtype").addClass("hidden");
+			$("#span_acadtermtype-choices").removeClass("hidden");
+		}
+
+	 });
+	 
+	
+	function showFooter(){
+		$('#footer').slideDown(150);
+		$('.footermin').hide();
+	}
+	function hideFooter(){
+		$('#footer').slideUp(150);
+		$('.footermin').show();
+	}
+	</script>
+
+<span style="clear:both;"></span>
+
+	<div class="footer_expander footermin" onclick="showFooter();">
+		More ▲
+	</div>
+
+		<div id="footer" align="center">
+		<div id="footer_linktotop" align="right" onclick="hideFooter();">
+			<a href="Javascript:void(0);" onclick="hideFooter();" style="color:white">Less ▼</a>
+		</div>
+		<div style="padding-top: 30px;">
+						<div class="footer_division">
+				<div class="footer_division_header">Flowcharts</div>
+																		<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/downloads/OnlineDroppingFlowchart.pdf" >
+								Dropping							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/downloads/ChangeMatFlowchart_modified.pdf" >
+								Change Mat							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/downloads/ClearanceMechanics.pdf" >
+								Clearance							</a>
+											</div>
+																								<div class="footer_division_item fdt_last">
+																				<a href="https://crs.upd.edu.ph/downloads/LOA_mechanics.pdf" >
+								Leave of Absence							</a>
+											</div>
+																	</div>
+						<div class="footer_division">
+				<div class="footer_division_header">Class Schedules</div>
+																		<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/schedule/" >
+								Regular Classes							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/schedule/mba" >
+								MBA/MS Finance PT							</a>
+											</div>
+																								<div class="footer_division_item fdt_last">
+																				<a href="https://crs.upd.edu.ph/schedule/spring" >
+								Spring Asia							</a>
+											</div>
+																	</div>
+						<div class="footer_division">
+				<div class="footer_division_header">Academic Information</div>
+																		<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/course_catalog" >
+								Course Catalog							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://our.upd.edu.ph/curriculum.html" >
+								Curriculum Checklist							</a>
+											</div>
+																								<div class="footer_division_item fdt_last">
+																				<a href="http://our.upd.edu.ph/files/ListofGECourses.pdf" >
+								List of RGEP Courses							</a>
+											</div>
+																	</div>
+						<div class="footer_division">
+				<div class="footer_division_header">Academic Calendar</div>
+																		<div class="footer_division_item ">
+																				<a href="http://our.upd.edu.ph/acadcal.php" >
+								BOR Approved<br>Academic Calendar<br>							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/acadcal_public/index/advanced/regular" >
+								Regular Calendar							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/acadcal_public/index/advanced/mba" >
+								MBA/MS Fin PT Calendar							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/acadcal_public/index/advanced/msfin" >
+								MS Fin FT Calendar							</a>
+											</div>
+																								<div class="footer_division_item fdt_last">
+																				<a href="https://crs.upd.edu.ph/acadcal_public/index/advanced/spring" >
+								Spring Asia Calendar							</a>
+											</div>
+																	</div>
+						<div class="footer_division">
+				<div class="footer_division_header">CRS</div>
+																		<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/faq" >
+								CRS FAQ							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://our.upd.edu.ph/faq.html" >
+								OUR FAQ							</a>
+											</div>
+																								<div class="footer_division_item ">
+													<span>History of the CRS<br/>(Coming Soon)</span>
+											</div>
+																								<div class="footer_division_item ">
+													<span>User Guide<br/>(Coming Soon)</span>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="https://crs.upd.edu.ph/about/" >
+								The CRS Team<br/>							</a>
+											</div>
+																								<div class="footer_division_item fdt_last">
+																				<a href="https://crs.upd.edu.ph/privacy_notice" >
+								Privacy Notice							</a>
+											</div>
+																	</div>
+						<div class="footer_division">
+				<div class="footer_division_header">Contact Us</div>
+																		<div class="footer_division_item ">
+																				<a href="http://www.facebook.com/groups/134746139953068/" >
+								Facebook Group							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="mailto:crssupport@list.upd.edu.ph" >
+								E-Mail							</a>
+											</div>
+																								<div class="footer_division_item ">
+													<span>Phone<br/>(981-8500 local 4560)</span>
+											</div>
+																								<div class="footer_division_item fdt_last">
+													<span>You may visit us at the CRSRS Office at the 3rd floor of the OUR.</span>
+											</div>
+																	</div>
+						<div class="footer_division">
+				<div class="footer_division_header">External Links</div>
+																		<div class="footer_division_item ">
+																				<a href="http://upd.edu.ph/" >
+								UP Diliman							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://up.edu.ph/" >
+								UP System							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://our.upd.edu.ph/" >
+								OUR Site							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="https://sts.up.edu.ph/" >
+								Socialized Tuition System							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://dormapplication.upd.edu.ph/" >
+								Dorm Application Website							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://uvle.up.edu.ph/" >
+								UvLE							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://ucc.upd.edu.ph/about-us/" >
+								UPCC							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://mail.up.edu.ph/" >
+								UP Webmail							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://www.dzup.org/" >
+								DZUP							</a>
+											</div>
+																								<div class="footer_division_item ">
+																				<a href="http://upd.edu.ph/aup/" >
+								Acceptable Use Policy							</a>
+											</div>
+																								<div class="footer_division_item fdt_last">
+																				<a href="https://upd.edu.ph/privacy" >
+								UP Diliman<br/>Data Privacy Portal							</a>
+											</div>
+																	</div>
+					</div>
+	</div>
+
+	<div class="footer_quicklinks footermin">
+		Quick Links:
+	</div>
+			<div class="footerlink footermin" onclick="window.location='https://crs.upd.edu.ph/schedule/'">
+			<a class="a_footerlink" href="https://crs.upd.edu.ph/schedule/">
+				Regular Classes			</a>
+		</div>
+			<div class="footerlink footermin" onclick="window.location='https://crs.upd.edu.ph/course_catalog'">
+			<a class="a_footerlink" href="https://crs.upd.edu.ph/course_catalog">
+				Course Catalog			</a>
+		</div>
+			<div class="footerlink footermin" onclick="window.location='http://our.upd.edu.ph/curriculum.html'">
+			<a class="a_footerlink" href="http://our.upd.edu.ph/curriculum.html">
+				Curriculum Checklist			</a>
+		</div>
+			<div class="footerlink footermin" onclick="window.location='https://crs.upd.edu.ph/acadcal_public/index/advanced/regular'">
+			<a class="a_footerlink" href="https://crs.upd.edu.ph/acadcal_public/index/advanced/regular">
+				Regular Calendar			</a>
+		</div>
+			<div class="footerlink footermin" onclick="window.location='https://crs.upd.edu.ph/faq'">
+			<a class="a_footerlink" href="https://crs.upd.edu.ph/faq">
+				CRS FAQ			</a>
+		</div>
+			<div class="footerlink footermin" onclick="window.location='https://crs.upd.edu.ph/about/'">
+			<a class="a_footerlink" href="https://crs.upd.edu.ph/about/">
+				The CRS Team<br/>			</a>
+		</div>
+			<div class="footerlink footermin" onclick="window.location='https://crs.upd.edu.ph/privacy_notice'">
+			<a class="a_footerlink" href="https://crs.upd.edu.ph/privacy_notice">
+				Privacy Notice			</a>
+		</div>
+	</body>
+</html>

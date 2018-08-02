@@ -3,291 +3,47 @@
 
 
 <html>
-<head>
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109224015-1"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-109224015-1');
-        </script>
-
-	<meta charset="UTF-8" />
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<meta http-equiv="Expires" content="-1" />
-	<meta http-equiv="Cache-Control" content="no-cache" />
-	<title>UP CRS - Schedule of Classes</title>
-	<script type="text/javascript" src="https://crs.upd.edu.ph/javascripts/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="https://crs.upd.edu.ph/javascripts/jquery.tablesorter.js"></script>
-	<script type="text/javascript" src="https://crs.upd.edu.ph/javascripts/jquery.tablesorter.widgets.js"></script>
-
-
-	<link rel="stylesheet" href="https://crs.upd.edu.ph/stylesheets/layout.css" type="text/css" />
-	<link rel="stylesheet" href="https://crs.upd.edu.ph/stylesheets/status.css" type="text/css" />
-	<link rel="stylesheet" href="https://crs.upd.edu.ph/stylesheets/schedule.css" type="text/css" />
-	<link rel="stylesheet" href="https://crs.upd.edu.ph/stylesheets/tablesorter/tablesorter.css" type="text/css" />
-	<link rel="shortcut icon" href="https://crs.upd.edu.ph/images/favicon.ico" type="image/x-icon" />
-
-	<style type="text/css">
-		#tbl_schedule tbody:hover {
-			background-color: #F0F0AF;
-		}
-	</style>
 	
-	<script type="text/javascript" language="JavaScript">
-	$(document).ready(function() {
-		$('#btn_search').click(searchClasses);
-		$('#frm_schedule').submit(function(e) {
-			e.preventDefault();
-			searchClasses();
-		});
-
-//		// table sorter
-//		$.tablesorter.addParser({
-//			// set uniqueid
-//			id: 'availableslots',
-//			is: function(s) {
-//				// return false so that parser is not automatically detected
-//				return false;
-//			},
-//			format: function(s) {
-//				var temp = s.replace('<strong>','').replace('</strong>','').split('/');
-//				return temp[0];
-//			},
-//			// set type to numeric
-//			type: 'numeric'
-//		});
-
-//		$('#tbl_schedule').tablesorter({widgets:['zebra'], headers: {0:{sorter:false},2:{sorter:false},4:{sorter:'availableslots'},5:{sorter:false}}});
-
-	});
-
-	</script>
-
-<style>
-	#frm_schedule {
-		margin: auto;
-		width: 25%;
-		background: #FCFCF0;
-		border: 3px solid #444444;
-		padding: 1em;
-	}
-	#frm_schedule strong, #search input {
-		padding-right: 1em;
-	}
-</style>
-</head>
-
-<body class="schedule">
-
-<div id="header">
-	<a class="header_link"></a>
-</div>
-<div id="subheader">
-</div>
-
-<div id="content" class="align-center">
-
-<h1>
-	ROTC ENLISTMENT MONITORING<br />
-	</h1>
-
-<br /><br />
-
-<table id="tbl_schedule" style="table-layout: fixed	">
-<thead>
-<tr>
-	<th width="5%">Class Code</th>
-	<th width="15%">Class</th>
-	<th width="5%">Credits</th>
-	<th width="30%">
-		Schedule<br />
-		Instructor(s)<br/>
-		Remarks
-	</th>
-	<th width="15%">Enlisting Unit : Block<br/><b>Block Remarks</b></th>
-	<th width="10%">
-		Available Slots /<br />
-		Total Slots
-	</th>
-	<th width="5%">Demand</th>
-	<th width="15%">Restrictions</th>
-</tr>
-</thead>
-
-
-		<tbody style="border-bottom: 1px solid gray">
-	<tr>
-		<td rowspan = "1">61708</td>
-		<td rowspan = "1">NSTP Common Module ROTC 1 - BAND</td>
-		<td rowspan = "1">0.0</td>
-		<td rowspan = "1">
-			S 8AM-12PM lec TBA(DMST)<br />
-			BARONA, JOHN<br/>
-			<em style="font-weight: bold">Band Unit - is for UP Symphonic Band Members enroled in ROTC 1.  They render music for ROTC Ceremonial Parade and for official activities of the University.</em>		</td>
-		 
-		<td>DMST<br/><em></em></td>
-					<td>
-				<strong>1</strong> /
-				25			</td>
-												<td rowspan="1">0</td>
-														
-		<td></td>
-		</tr>
-					</tbody>
-		<tbody style="border-bottom: 1px solid gray">
-	<tr>
-		<td rowspan = "1">61710</td>
-		<td rowspan = "1">NSTP Common Module ROTC 1 - HQ</td>
-		<td rowspan = "1">0.0</td>
-		<td rowspan = "1">
-			S 8AM-12PM lec TBA(DMST)<br />
-			BARONA, JOHN<br/>
-			<em style="font-weight: bold">HQ - is Headquarter Service  support group in order to accomplish the mission of the ROTC Corps of Cadets. </em>		</td>
-		 
-		<td>DMST<br/><em></em></td>
-					<td>
-				<strong>23</strong> /
-				25			</td>
-												<td rowspan="1">0</td>
-														
-		<td></td>
-		</tr>
-					</tbody>
-		<tbody style="border-bottom: 1px solid gray">
-	<tr>
-		<td rowspan = "1">61706</td>
-		<td rowspan = "1">NSTP Common Module ROTC 1 - INF</td>
-		<td rowspan = "1">0.0</td>
-		<td rowspan = "1">
-			S 8AM-12PM lec TBA(DMST)<br />
-			BARONA, JOHN<br/>
-			<em style="font-weight: bold">Infantry - is for training in Marksmanship & Small Unit Tactics (SUT), for effective land based unit.</em>		</td>
-		 
-		<td>DMST<br/><em></em></td>
-					<td>
-				<strong>79</strong> /
-				100			</td>
-												<td rowspan="1">0</td>
-														
-		<td></td>
-		</tr>
-					</tbody>
-		<tbody style="border-bottom: 1px solid gray">
-	<tr>
-		<td rowspan = "1">61702</td>
-		<td rowspan = "1">NSTP Common Module ROTC 1 - RAYA</td>
-		<td rowspan = "1">0.0</td>
-		<td rowspan = "1">
-			S 8AM-12PM lec TBA(DMST)<br />
-			BARONA, JOHN<br/>
-			<em style="font-weight: bold">Rayadillo - is for training in Drills & Cremonies. The Rayadillo Unit serves as the Honor Guard of the University.</em>		</td>
-		 
-		<td>DMST<br/><em></em></td>
-					<td>
-				<strong>21</strong> /
-				50			</td>
-												<td rowspan="1">0</td>
-														
-		<td></td>
-		</tr>
-					</tbody>
-		<tbody style="border-bottom: 1px solid gray">
-	<tr>
-		<td rowspan = "1">61704</td>
-		<td rowspan = "1">NSTP Common Module ROTC1- RESCUE</td>
-		<td rowspan = "1">0.0</td>
-		<td rowspan = "1">
-			S 8AM-12PM lec TBA(DMST)<br />
-			BARONA, JOHN<br/>
-			<em style="font-weight: bold">Rescue - is for training in First Aid and Disaster Risk Reduction Management, to respond in cases of calamity and disaster.</em>		</td>
-		 
-		<td>DMST<br/><em></em></td>
-					<td>
-				<strong>45</strong> /
-				100			</td>
-												<td rowspan="1">0</td>
-														
-		<td></td>
-		</tr>
-	</tbody>
-	</table>
-
-</div><!-- #content -->
-
-﻿
-<script type="text/javascript">
-			
-		$(document).ready(function() {
-			
-			//set the width per footer_expander element
-			var expander_count = $('.footerlink').length;
-			var expander_width = (83/expander_count);
-			
-			var i = 0;
-			$.each($(".footerlink"), function(index, value){
-				$(this).css('width', expander_width+'%');
-				$(this).css('left', (((expander_width)*i)+10)+'%');
-				i++;
-			});
-			
-			$(".footerlink,.footer_expander").hover(
-				function(){
-					$(this).animate({ height: "30"}, 50);
-				},
-				function(){
-					$(this).animate({ height: "16"}, 50);
-				
-				}
-			);
-			
-			//set the width per footer_expander element
-			var division_count = $('.footer_division').length;
-			var division_width = (88/division_count);
-			division_width = division_width+'%';
-			
-			$.each($(".footer_division"), function(index, value){
-				$(this).css('width', division_width);
-			});
-			
-		function change_acadtermtype() {
-			return document.location = 'https://crs.upd.edu.ph/user/switch_acadtermtype/' + $(this).val();
-		}
-
-		function change_role() {
-			return document.location = 'https://crs.upd.edu.ph/user/switch_role/' + $(this).val();
-		}
-
-		function show_roles() {
-			$("#span_role").addClass("hidden");
-			$("#span_role-choices").removeClass("hidden");
-		}
-
-		function show_acadtermtypes() {
-			$("#span_acadtermtype").addClass("hidden");
-			$("#span_acadtermtype-choices").removeClass("hidden");
-		}
-
-	 });
-	 
+	<head>ROTC Enlistment Monitoring Bookmarklet</head>
 	
-	function showFooter(){
-		$('#footer').slideDown(150);
-		$('.footermin').hide();
-	}
-	function hideFooter(){
-		$('#footer').slideUp(150);
-		$('.footermin').show();
-	}
-	</script>
-
-<span style="clear:both;"></span>
-
-		
-	</div>
-
+	<body>
+			<a href="javascript:(function(){
+			var input, filter, table, tbody, tr, td, i, j, raya_slots_taken, inf_slots_taken, rescue_slots_taken, band_slots_taken, hq_slots_taken;
+			filter = [61702,61706,61704,61710,61708]
+			table = document.getElementById("tbl_schedule");
+			tbody = table.getElementsByTagName("tbody");
+			for (i = 0; i < tbody.length; i++) {
+			    tr = tbody[i].getElementsByTagName("tr");
+			    td = tr[0].getElementsByTagName("td");
+			    for (j = 0; j < td.length; j++) {
+				if (td) {
+				    if (td[0].innerHTML == 61702) {
+					raya_slots_taken = 50 - td[5].getElementsByTagName("strong")[0].innerHTML
+					td[6].innerHTML = raya_slots_taken+" enlisted cadets"
+					console.log("RAYADILLO:"+raya_slots_taken+" slots taken")
+				    }else if (td[0].innerHTML == 61706) {
+					inf_slots_taken = 100 - td[5].getElementsByTagName("strong")[0].innerHTML
+					td[6].innerHTML = inf_slots_taken+" enlisted cadets"
+					console.log("INFANTRY:"+inf_slots_taken+" slots taken")
+				    }else if (td[0].innerHTML == 61704) {
+					rescue_slots_taken = 100 - td[5].getElementsByTagName("strong")[0].innerHTML
+					td[6].innerHTML = rescue_slots_taken+" enlisted cadets"
+					console.log("RESCUE:"+rescue_slots_taken+" slots taken")
+				    }else if (td[0].innerHTML == 61710) {
+					hq_slots_taken = 25 - td[5].getElementsByTagName("strong")[0].innerHTML
+					td[6].innerHTML = hq_slots_taken+" enlisted cadets"
+					console.log("HQ:"+hq_slots_taken+" slots taken")
+				    }else if (td[0].innerHTML == 61708) {
+					band_slots_taken = 25 - td[5].getElementsByTagName("strong")[0].innerHTML
+					td[6].innerHTML = band_slots_taken+" enlisted cadets"
+					console.log("BAND:"+band_slots_taken+" slots taken")
+				    }else{
+					tbody[i].style.display = "none";
+				    }
+				}       
+			    }
+			}
+		})();">ROTC Enlistment Stats</a>
 	</body>
+	
 </html>

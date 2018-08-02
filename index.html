@@ -18,4 +18,14 @@ ROTC Enlistment Monitoring
 
 <script src="http://code.jquery.com/jquery-1.4.2.min.js">  
 </script>
-
+<script>
+var $rows = $('#table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+</script>
